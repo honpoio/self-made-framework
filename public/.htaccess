@@ -1,0 +1,16 @@
+#htaccesとは？
+#Webサーバーの基本的な動作を、ディレクトリ単位で制御する
+#詳しくはこ↑こ↓を参考に
+#https://rfs.jp/server/apache/02apache/url_rewrite.html
+<IfModule mod_rewrite.c>
+    #Rewrite機能 =>アクセスのあったURLを、正規表現で書き換えてから処理する機能
+    RewriteEngine On
+    #URL の書き換え処理を制御する
+    RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteRule を実行するための条件を定義するための記述
+        #https://weblabo.oscasierra.net/apache-rewritecond-base/
+        #!-f =>HTTPレスポンスの403(Forbidden)を返す。
+            #403とは =>HTTPレスポンスの403はアクセス権限がないことを示す。
+                #ざっくり説明するとREQUEST_FILENAME以外は403を返す
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
